@@ -1,0 +1,9 @@
+{% extends 'index.html' %}
+{% block content1 %}
+    Bienvenido Dr. {{ user.first_name }}
+{% endblock %}
+{% block content2 %}
+    <h5>Seleccione:</h5>
+    <a class="btn btn-success btn-lg pb_btn-pill smoothscroll" href="{% url 'paciente_new' %}" role="button">Paciente</a>
+    <a class="btn btn-success btn-lg pb_btn-pill smoothscroll" href="{% url 'estadistica' %}" role="button">Estadisticas</a>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+
+{% block content1 %}
+    Nuevo Paciente
+{% endblock %}
+
+{% block content2 %}
+
+    <form method="POST" class="paciente-form">{% csrf_token %}
+
+        {{ form.as_ul}}
+        <button class="btn btn-success btn-lg pb_btn-pill smoothscroll" type="submit" >Crear</button>
+    </form>
+{% endblock %}

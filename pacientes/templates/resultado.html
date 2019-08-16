@@ -1,0 +1,76 @@
+{% extends 'index.html' %}
+{% block importaciones %}
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+{% endblock %}
+{% block content3 %}
+
+{% endblock %}
+{% block graficaShow %}
+    <div id="myfirstchart" style="color:white;" ></div>
+{% endblock %}
+{% block content1 %}
+    Paciente: {{ nombre }}
+{% endblock %}
+{% block content2 %}
+            {% if porcentaje <= 30 %}
+                Actualmente su riesgo de contraer la diabetes tipo 2 es bajo, no obstante este riesgo puede cambiar con el pasar del tiempo y aumentar la probabilidad de que se presente, es por esto que le sugerimos seguir las siguientes indicaciones:
+                <ul >
+                  <li ><h6>Para prevenir la aparición de la diabetes es necesario mantenerse en un peso adecuado llevando una vida saludable se recomienda el consumo de frutas y vegetales y evitar el consumo de comida rápida y grasas saturadas.</h6></li>
+                  <li ><h6>Es recomendable llevar una rutina de ejercicios que ayuden a mantenerlo lejos del sobrepeso, hacer minino 30 minutos de ejercicios al menos 3 días a la semana.</h6></li>
+                  <li ><h6>Evitar el exceso de azúcar y bebidas gaseosas.</h6></li>
+                </ul>
+            {% endif %}
+            {% if porcentaje >= 31 and porcentaje <= 60 %}
+                En este momento usted se encuentra propenso de contraer diabetes es de suma importancia que visite a su médico de confianza para que le haga una evaluación y determine su situación actual, le sugerimos seguir las siguientes recomendaciones:
+                <ul >
+                  <li ><h6>Reprograme su alimentación inmediatamente, recuerde el consumo de vegetales, consuma frutas de la temporada, verduras. Elimine el consumo de grasas saturadas.</h6></li>
+                  <li ><h6>Intente llevar una rutina de mínimo 40 minutos de actividad física todos los días de la semana, ropa cómoda y zapatos adecuados.</h6></li>
+                  <li ><h6>No consumir tabaco.</h6></li>
+                  <li ><h6>Acuda a un médico que evalué su estado de salud, el médico le diagnosticara que medicamentos tomar para controlar la presión alta y medicar dislipidemia en caso de que sea necesario.</h6></li>
+                </ul>
+            {% endif %}
+            {% if porcentaje >= 61 %}
+                <h6>No deje pasar más tiempo y acuda a un médico para que le realice los exámenes pertinentes y evalué su estado de salud actual, a continuación, detallamos las recomendaciones que puede seguir:</h6>
+                <ul >
+                  <li ><h6>Indispensable tener una buena nutrición llevando una dieta sana y equilibrada, libre de grasas y de azúcar simple (mesa blanca, morena).</h6></li>
+                  <li ><h6>Mantener un peso saludable, y el imc dentro del rango de 25 a 27.</h6></li>
+                  <li ><h6>No ingerir tabaco, ni alcohol ni gaseosas.</h6></li>
+                <li ><h6>Tener una rutina diaria de actividad física.</h6></li>
+                  <li ><h6>Evitar el sedentarismo, use las escaleras.</h6></li>
+                <li ><h6>Consultar a su médico para que el lleve su control sobre su nivel de azúcar en la sangre y cheque su estado de salud.</h6></li>
+                </ul>
+            {% endif %}
+
+    <a class="btn btn-success btn-lg pb_btn-pill smoothscroll" href="{% url 'dashboard' %}" role="button">Inicio</a>
+{% endblock %}
+
+{% block graficaScript %}
+   <script>
+        new Morris.Line({
+          // ID of the element in which to draw the chart.
+          element: 'myfirstchart',
+          // Chart data records -- each entry in this array corresponds to a point on
+          // the chart.
+          data: [
+            {% for item in consulta %}
+                { year: '{{ item.date|date:"P d/m/Y" }}', value: '{{ item.porcentaje }}' }{% if not forloop.last %},{% endif %}
+            {% endfor %}
+              ],
+          // The name of the data record attribute that contains x-values.
+          xkey: 'year',
+          // A list of names of data record attributes that contain y-values.
+          ykeys: ['value'],
+          // Labels for the ykeys -- will be displayed when you hover over the
+          // chart.
+          labels: ['Value'],
+          parseTime: false,
+          hideHover: 'auto',
+          resize: true,
+            labelColor: '#FFFFFF'
+
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'index.html' %}
+
+{% load crispy_forms_tags %}
+
+  {% block content1 %}Ingrese sus Datos {% endblock %}
+
+    {% block content2 %}
+       <form method="POST">
+        {% csrf_token %}
+        {{ form|crispy  }}
+        <button type="submit" class="btn btn-success btn-lg pb_btn-pill smoothscroll">Entrar</button>
+        </form>
+    {% endblock %}
+
+
+
